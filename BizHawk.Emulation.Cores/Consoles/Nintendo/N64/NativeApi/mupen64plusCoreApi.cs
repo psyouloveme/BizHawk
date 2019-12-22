@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -471,8 +472,7 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64.NativeApi
 		delegate m64p_error DebugStep();
 		DebugStep m64pDebugStep;
 
-		// DLL handles
-		public IntPtr CoreDll { get; private set; }
+		private readonly DynamicLibraryImportResolver Library = new DynamicLibraryImportResolver("mupen64plus");
 
 		public mupen64plusApi(N64 bizhawkCore, byte[] rom, VideoPluginSettings video_settings, int SaveType, int CoreType, bool DisableExpansionSlot)
 		{
@@ -483,8 +483,6 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64.NativeApi
 				AttachedCore = null;
 			}
 			this.bizhawkCore = bizhawkCore;
-
-			CoreDll = libLoader.LoadOrThrow("mupen64plus");
 
 			connectFunctionPointers();
 
@@ -583,7 +581,7 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64.NativeApi
 		/// </summary>
 		void connectFunctionPointers()
 		{
-			T GetCoreDelegate<T>(string proc) where T : Delegate => GetTypedDelegate<T>(CoreDll, proc);
+			T GetCoreDelegate<T>(string proc) where T : Delegate => (T) Marshal.GetDelegateForFunctionPointer(Library.GetProcAddrOrThrow(proc), typeof(T));
 
 			m64pCoreStartup = GetCoreDelegate<CoreStartup>("CoreStartup");
 			m64pCoreShutdown = GetCoreDelegate<CoreShutdown>("CoreShutdown");
@@ -969,51 +967,53 @@ namespace BizHawk.Emulation.Cores.Nintendo.N64.NativeApi
 
 				m64pCoreDoCommandPtr(m64p_command.M64CMD_ROM_CLOSE, 0, IntPtr.Zero);
 				m64pCoreShutdown();
-				libLoader.FreeByPtr(CoreDll);
+				Library.Dispose();
 
 				disposed = true;
 			}
 		}
 
-		struct AttachedPlugin
+		internal static IntPtr HackNameMe(DynamicLibraryImportResolver lib) => (IntPtr) typeof(DynamicLibraryImportResolver).GetField("_p", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(lib);
+
+		private struct AttachedPlugin
 		{
 			public PluginStartup dllStartup;
 			public PluginShutdown dllShutdown;
-			public IntPtr dllHandle;
+			public DynamicLibraryImportResolver dllThinWrapper;
 		}
-		Dictionary<m64p_plugin_type, AttachedPlugin> plugins = new Dictionary<m64p_plugin_type, AttachedPlugin>();
+
+		private readonly Dictionary<m64p_plugin_type, AttachedPlugin> plugins = new Dictionary<m64p_plugin_type, AttachedPlugin>();
 
 		public IntPtr AttachPlugin(m64p_plugin_type type, string PluginName)
 		{
-			if (plugins.ContainsKey(type))
-				DetachPlugin(type);
-
-			AttachedPlugin plugin;
-			plugin.dllHandle = libLoader.LoadOrThrow(PluginName);
-			plugin.dllStartup = GetTypedDelegate<PluginStartup>(plugin.dllHandle, "PluginStartup");
-			plugin.dllShutdown = GetTypedDelegate<PluginShutdown>(plugin.dllHandle, "PluginShutdown");
-			plugin.dllStartup(CoreDll, null, null);
-
-			m64p_error result = m64pCoreAttachPlugin(type, plugin.dllHandle);
-			if (result != m64p_error.M64ERR_SUCCESS)
+			if (plugins.ContainsKey(type)) DetachPlugin(type);
+			var dlir = new DynamicLibraryImportResolver(PluginName);
+			var dllHandle = HackNameMe(dlir);
+			if (m64pCoreAttachPlugin(type, dllHandle) != m64p_error.M64ERR_SUCCESS)
 			{
-				libLoader.FreeByPtr(plugin.dllHandle);
+				dlir.Dispose();
 				throw new InvalidOperationException($"Error during attaching plugin {PluginName}");
 			}
 
+			var plugin = new AttachedPlugin
+			{
+				dllThinWrapper = dlir,
+				dllStartup = GetTypedDelegate<PluginStartup>(dllHandle, "PluginStartup"),
+				dllShutdown = GetTypedDelegate<PluginShutdown>(dllHandle, "PluginShutdown")
+			};
 			plugins.Add(type, plugin);
-			return plugin.dllHandle;
+			plugin.dllStartup(HackNameMe(Library), null, null);
+			return dllHandle;
 		}
 
 		public void DetachPlugin(m64p_plugin_type type)
 		{
-			AttachedPlugin plugin;
-			if (plugins.TryGetValue(type, out plugin))
+			if (plugins.TryGetValue(type, out var plugin))
 			{
 				plugins.Remove(type);
 				m64pCoreDetachPlugin(type);
 				plugin.dllShutdown();
-				libLoader.FreeByPtr(plugin.dllHandle);
+				plugin.dllThinWrapper.Dispose();
 			}
 		}
 
