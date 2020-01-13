@@ -190,8 +190,8 @@
 			this.WatchListView.AllowColumnReorder = true;
 			this.WatchListView.AllowColumnResize = true;
 			this.WatchListView.AllowDrop = true;
-			this.WatchListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-			| System.Windows.Forms.AnchorStyles.Left) 
+			this.WatchListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
 			| System.Windows.Forms.AnchorStyles.Right)));
 			this.WatchListView.ContextMenuStrip = this.ListViewContextMenu;
 			this.WatchListView.FullRowSelect = true;
@@ -213,18 +213,18 @@
 			// ListViewContextMenu
 			// 
 			this.ListViewContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.DoSearchContextMenuItem,
-			this.NewSearchContextMenuItem,
-			this.ContextMenuSeparator1,
-			this.RemoveContextMenuItem,
-			this.AddToRamWatchContextMenuItem,
-			this.PokeContextMenuItem,
-			this.FreezeContextMenuItem,
-			this.UnfreezeAllContextMenuItem,
-			this.ContextMenuSeparator2,
-			this.ViewInHexEditorContextMenuItem,
-			this.ContextMenuSeparator3,
-			this.ClearPreviewContextMenuItem});
+            this.DoSearchContextMenuItem,
+            this.NewSearchContextMenuItem,
+            this.ContextMenuSeparator1,
+            this.RemoveContextMenuItem,
+            this.AddToRamWatchContextMenuItem,
+            this.PokeContextMenuItem,
+            this.FreezeContextMenuItem,
+            this.UnfreezeAllContextMenuItem,
+            this.ContextMenuSeparator2,
+            this.ViewInHexEditorContextMenuItem,
+            this.ContextMenuSeparator3,
+            this.ClearPreviewContextMenuItem});
 			this.ListViewContextMenu.Name = "contextMenuStrip1";
 			this.ListViewContextMenu.Size = new System.Drawing.Size(218, 220);
 			this.ListViewContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ListViewContextMenu_Opening);
@@ -421,14 +421,14 @@
 			// settingsToolStripMenuItem
 			// 
 			this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.modeToolStripMenuItem,
-			this.MemoryDomainsSubMenu,
-			this.sizeToolStripMenuItem,
-			this.CheckMisalignedMenuItem,
-			this.toolStripSeparator8,
-			this.BigEndianMenuItem,
-			this.DisplayTypeSubMenu,
-			this.DefinePreviousValueSubMenu});
+            this.modeToolStripMenuItem,
+            this.MemoryDomainsSubMenu,
+            this.sizeToolStripMenuItem,
+            this.CheckMisalignedMenuItem,
+            this.toolStripSeparator8,
+            this.BigEndianMenuItem,
+            this.DisplayTypeSubMenu,
+            this.DefinePreviousValueSubMenu});
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
 			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
 			this.settingsToolStripMenuItem.Text = "&Settings";
@@ -437,8 +437,8 @@
 			// modeToolStripMenuItem
 			// 
 			this.modeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.DetailedMenuItem,
-			this.FastMenuItem});
+            this.DetailedMenuItem,
+            this.FastMenuItem});
 			this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
 			this.modeToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
 			this.modeToolStripMenuItem.Text = "&Mode";
@@ -461,7 +461,7 @@
 			// MemoryDomainsSubMenu
 			// 
 			this.MemoryDomainsSubMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.toolStripSeparator6});
+            this.toolStripSeparator6});
 			this.MemoryDomainsSubMenu.Name = "MemoryDomainsSubMenu";
 			this.MemoryDomainsSubMenu.Size = new System.Drawing.Size(187, 22);
 			this.MemoryDomainsSubMenu.Text = "&Memory Domains";
@@ -475,9 +475,9 @@
 			// sizeToolStripMenuItem
 			// 
 			this.sizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.ByteMenuItem,
-			this.WordMenuItem,
-			this.DWordMenuItem});
+            this.ByteMenuItem,
+            this.WordMenuItem,
+            this.DWordMenuItem});
 			this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
 			this.sizeToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
 			this.sizeToolStripMenuItem.Text = "&Size";
