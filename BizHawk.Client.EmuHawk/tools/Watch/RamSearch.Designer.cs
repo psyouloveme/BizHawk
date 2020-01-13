@@ -322,10 +322,10 @@
 			// 
 			this.RamSearchMenu.ClickThrough = true;
 			this.RamSearchMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.fileToolStripMenuItem,
-			this.settingsToolStripMenuItem,
-			this.searchToolStripMenuItem,
-			this.optionsToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.settingsToolStripMenuItem,
+            this.searchToolStripMenuItem,
+            this.optionsToolStripMenuItem});
 			this.RamSearchMenu.Location = new System.Drawing.Point(0, 0);
 			this.RamSearchMenu.Name = "RamSearchMenu";
 			this.RamSearchMenu.Size = new System.Drawing.Size(445, 24);
@@ -335,14 +335,14 @@
 			// fileToolStripMenuItem
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.OpenMenuItem,
-			this.SaveMenuItem,
-			this.SaveAsMenuItem,
-			this.AppendFileMenuItem,
-			this.TruncateFromFileMenuItem,
-			this.RecentSubMenu,
-			this.toolStripSeparator4,
-			this.exitToolStripMenuItem});
+            this.OpenMenuItem,
+            this.SaveMenuItem,
+            this.SaveAsMenuItem,
+            this.AppendFileMenuItem,
+            this.TruncateFromFileMenuItem,
+            this.RecentSubMenu,
+            this.toolStripSeparator4,
+            this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "&File";
@@ -526,7 +526,7 @@
 			// DisplayTypeSubMenu
 			// 
 			this.DisplayTypeSubMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.toolStripSeparator1});
+            this.toolStripSeparator1});
 			this.DisplayTypeSubMenu.Name = "DisplayTypeSubMenu";
 			this.DisplayTypeSubMenu.Size = new System.Drawing.Size(187, 22);
 			this.DisplayTypeSubMenu.Text = "&Display Type";
@@ -580,21 +580,21 @@
 			// searchToolStripMenuItem
 			// 
 			this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.newSearchToolStripMenuItem,
-			this.toolStripSeparator7,
-			SearchMenuItem,
-			this.UndoMenuItem,
-			this.RedoMenuItem,
-			this.CopyValueToPrevMenuItem,
-			this.ClearChangeCountsMenuItem,
-			this.RemoveMenuItem,
-			this.toolStripSeparator5,
-			this.GoToAddressMenuItem,
-			this.AddToRamWatchMenuItem,
-			this.PokeAddressMenuItem,
-			this.FreezeAddressMenuItem,
-			this.toolStripSeparator13,
-			this.ClearUndoMenuItem});
+            this.newSearchToolStripMenuItem,
+            this.toolStripSeparator7,
+            SearchMenuItem,
+            this.UndoMenuItem,
+            this.RedoMenuItem,
+            this.CopyValueToPrevMenuItem,
+            this.ClearChangeCountsMenuItem,
+            this.RemoveMenuItem,
+            this.toolStripSeparator5,
+            this.GoToAddressMenuItem,
+            this.AddToRamWatchMenuItem,
+            this.PokeAddressMenuItem,
+            this.FreezeAddressMenuItem,
+            this.toolStripSeparator13,
+            this.ClearUndoMenuItem});
 			this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
 			this.searchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
 			this.searchToolStripMenuItem.Text = "&Search";
@@ -711,19 +711,19 @@
 			// optionsToolStripMenuItem
 			// 
 			this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.PreviewModeMenuItem,
-			this.AutoSearchMenuItem,
-			this.AutoSearchAccountForLagMenuItem,
-			this.toolStripSeparator9,
-			this.ExcludeRamWatchMenuItem,
-			this.UseUndoHistoryMenuItem,
-			this.toolStripSeparator11,
-			this.AutoloadDialogMenuItem,
-			this.SaveWinPositionMenuItem,
-			this.AlwaysOnTopMenuItem,
-			this.FloatingWindowMenuItem,
-			this.toolStripSeparator3,
-			this.RestoreDefaultsMenuItem});
+            this.PreviewModeMenuItem,
+            this.AutoSearchMenuItem,
+            this.AutoSearchAccountForLagMenuItem,
+            this.toolStripSeparator9,
+            this.ExcludeRamWatchMenuItem,
+            this.UseUndoHistoryMenuItem,
+            this.toolStripSeparator11,
+            this.AutoloadDialogMenuItem,
+            this.SaveWinPositionMenuItem,
+            this.AlwaysOnTopMenuItem,
+            this.FloatingWindowMenuItem,
+            this.toolStripSeparator3,
+            this.RestoreDefaultsMenuItem});
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
 			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
 			this.optionsToolStripMenuItem.Text = "&Options";
