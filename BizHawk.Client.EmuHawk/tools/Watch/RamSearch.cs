@@ -138,6 +138,8 @@ namespace BizHawk.Client.EmuHawk
 
 			MessageLabel.Text = "";
 			SpecificAddressBox.MaxLength = (MemoryDomains.MainMemory.Size - 1).NumHexDigits();
+			AddressStartFilterBox.MaxLength = (MemoryDomains.MainMemory.Size - 1).NumHexDigits();
+			AddressEndFilterBox.MaxLength = (MemoryDomains.MainMemory.Size - 1).NumHexDigits();
 			HardSetSizeDropDown(_settings.Size);
 			PopulateTypeDropDown();
 			HardSetDisplayTypeDropDown(_settings.Type);
@@ -145,11 +147,15 @@ namespace BizHawk.Client.EmuHawk
 			SetReboot(false);
 
 			SpecificAddressBox.SetHexProperties(_settings.Domain.Size);
+			AddressStartFilterBox.SetHexProperties(_settings.Domain.Size);
+			AddressEndFilterBox.SetHexProperties(_settings.Domain.Size);
 			SpecificValueBox.ResetText();
 			SpecificAddressBox.ResetText();
 			NumberOfChangesBox.ResetText();
 			DifferenceBox.ResetText();
 			DifferentByBox.ResetText();
+			AddressStartFilterBox.ResetText();
+			AddressEndFilterBox.ResetText();
 
 			_dropdownDontfire = false;
 
@@ -342,8 +348,10 @@ namespace BizHawk.Client.EmuHawk
 			var compareTo = _searches.CompareTo;
 			var compareVal = _searches.CompareValue;
 			var differentBy = _searches.DifferentBy;
+			var startFilter = _searches.StartAddressFilter;
+			var endFilter = _searches.EndAddressFilter;
 
-			_searches = new RamSearchEngine(_settings, MemoryDomains, compareTo, compareVal, differentBy);
+			_searches = new RamSearchEngine(_settings, MemoryDomains, compareTo, compareVal, differentBy, startFilter, endFilter);
 			_searches.Start();
 			if (Settings.AlwaysExcludeRamWatch)
 			{
@@ -481,6 +489,42 @@ namespace BizHawk.Client.EmuHawk
 			}
 		}
 
+		private RamSearchEngine.AddressFilter StartFilter
+		{
+			get
+			{
+				if (!StartAddressFilterCheck.Checked)
+				{
+					return null;
+				}
+				return new RamSearchEngine.AddressFilter()
+				{
+					FilterType = IncludeStartAddressFilterCheck.Checked
+					? RamSearchEngine.AddressFilterType.GreaterThanEqual
+					: RamSearchEngine.AddressFilterType.GreaterThan,
+					FilterValue = AddressStartFilterBox.ToRawInt()
+				};
+			}
+		}
+
+		private RamSearchEngine.AddressFilter EndFilter
+		{
+			get
+			{
+				if (!EndAddressFilterCheck.Checked)
+				{
+					return null;
+				}
+				return new RamSearchEngine.AddressFilter()
+				{
+					FilterType = IncludeEndAddressFilterCheck.Checked
+						? RamSearchEngine.AddressFilterType.LessThanEqual
+						: RamSearchEngine.AddressFilterType.LessThan,
+					FilterValue = AddressEndFilterBox.ToRawInt()
+				};
+			}
+		}
+
 		private int? DifferentByValue => DifferentByRadio.Checked ? DifferentByBox.ToRawInt() : null;
 
 		private RamSearchEngine.ComparisonOperator Operator
@@ -603,6 +647,8 @@ namespace BizHawk.Client.EmuHawk
 			_settings.Domain = MemoryDomains[name];
 			SetReboot(true);
 			SpecificAddressBox.MaxLength = (_settings.Domain.Size - 1).NumHexDigits();
+			AddressStartFilterBox.MaxLength = (_settings.Domain.Size - 1).NumHexDigits();
+			AddressEndFilterBox.MaxLength = (_settings.Domain.Size - 1).NumHexDigits();
 			DoDomainSizeCheck();
 		}
 
@@ -661,6 +707,16 @@ namespace BizHawk.Client.EmuHawk
 			if (!string.IsNullOrEmpty(SpecificAddressBox.Text))
 			{
 				SpecificAddressBox.Text = "0";
+			}
+
+			if (!string.IsNullOrEmpty(AddressStartFilterBox.Text))
+			{
+				AddressStartFilterBox.Text = "0";
+			}
+
+			if (!string.IsNullOrEmpty(AddressEndFilterBox.Text))
+			{
+				AddressEndFilterBox.Text = "0";
 			}
 
 			if (!string.IsNullOrEmpty(SpecificValueBox.Text))
@@ -1812,6 +1868,88 @@ namespace BizHawk.Client.EmuHawk
 			GenericDragEnter(sender, e);
 		}
 
+		#endregion
+
+		#region
+		private void StartAddressFilterCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			if (StartAddressFilterCheck.Checked)
+			{
+				AddressStartFilterBox.Enabled = true;
+				IncludeStartAddressFilterCheck.Enabled = true;
+				if (string.IsNullOrWhiteSpace(AddressStartFilterBox.Text))
+				{
+					AddressStartFilterBox.ResetText();
+				}
+				_searches.StartAddressFilter = StartFilter;
+				if (Focused)
+				{
+					AddressStartFilterBox.Focus();
+				}
+				NumberOfChangesBox.Enabled = false;
+				DifferenceBox.Enabled = false;
+				WatchListView.Refresh();
+			}
+			else
+			{
+				DisableStartFilter();
+				WatchListView.Refresh();
+			}
+		}
+
+		private void EndAddressFilterCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			if (EndAddressFilterCheck.Checked)
+			{
+				AddressEndFilterBox.Enabled = true;
+				IncludeEndAddressFilterCheck.Enabled = true;
+				if (string.IsNullOrWhiteSpace(AddressEndFilterBox.Text))
+				{
+					AddressEndFilterBox.ResetText();
+				}
+				_searches.EndAddressFilter = EndFilter;
+				if (Focused)
+				{
+					AddressEndFilterBox.Focus();
+				}
+				NumberOfChangesBox.Enabled = false;
+				DifferenceBox.Enabled = false;
+				WatchListView.Refresh();
+			}
+			else
+			{
+				DisableEndFilter();
+				WatchListView.Refresh();
+			}
+		}
+
+		private void DisableStartFilter()
+		{
+			AddressStartFilterBox.Enabled = false;
+			AddressStartFilterBox.Text = "00";
+			IncludeStartAddressFilterCheck.Enabled = false;
+			_searches.StartAddressFilter = null;
+		}
+
+		private void DisableEndFilter()
+		{
+			AddressEndFilterBox.Enabled = false;
+			AddressEndFilterBox.Text = "00";
+			IncludeEndAddressFilterCheck.Enabled = false;
+			_searches.EndAddressFilter = null;
+		}
+		
+		private void RefreshStartFilter(object sender, EventArgs args)
+		{
+			_searches.StartAddressFilter = StartFilter;
+			WatchListView.Refresh();
+		}
+
+		private void RefreshEndFilter(object sender, EventArgs args)
+		{
+			_searches.EndAddressFilter = EndFilter;
+			WatchListView.Refresh();
+		}
 		#endregion
 
 		#endregion
