@@ -190,9 +190,9 @@
 			this.WatchListView.AllowColumnReorder = true;
 			this.WatchListView.AllowColumnResize = true;
 			this.WatchListView.AllowDrop = true;
-			this.WatchListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.WatchListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.WatchListView.ContextMenuStrip = this.ListViewContextMenu;
 			this.WatchListView.FullRowSelect = true;
 			this.WatchListView.GridLines = true;
@@ -370,7 +370,7 @@
 			// 
 			this.SaveAsMenuItem.Name = "SaveAsMenuItem";
 			this.SaveAsMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-			| System.Windows.Forms.Keys.S)));
+            | System.Windows.Forms.Keys.S)));
 			this.SaveAsMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.SaveAsMenuItem.Text = "Save As...";
 			this.SaveAsMenuItem.Click += new System.EventHandler(this.SaveAsMenuItem_Click);
@@ -393,7 +393,7 @@
 			// RecentSubMenu
 			// 
 			this.RecentSubMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.toolStripSeparator2});
+            this.toolStripSeparator2});
 			this.RecentSubMenu.Image = global::BizHawk.Client.EmuHawk.Properties.Resources.Recent;
 			this.RecentSubMenu.Name = "RecentSubMenu";
 			this.RecentSubMenu.Size = new System.Drawing.Size(195, 22);
@@ -540,10 +540,10 @@
 			// DefinePreviousValueSubMenu
 			// 
 			this.DefinePreviousValueSubMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.Previous_LastSearchMenuItem,
-			this.PreviousFrameMenuItem,
-			this.Previous_OriginalMenuItem,
-			this.Previous_LastChangeMenuItem});
+            this.Previous_LastSearchMenuItem,
+            this.PreviousFrameMenuItem,
+            this.Previous_OriginalMenuItem,
+            this.Previous_LastChangeMenuItem});
 			this.DefinePreviousValueSubMenu.Name = "DefinePreviousValueSubMenu";
 			this.DefinePreviousValueSubMenu.Size = new System.Drawing.Size(187, 22);
 			this.DefinePreviousValueSubMenu.Text = "Define Previous Value";
@@ -870,7 +870,7 @@
 			// DifferenceBox
 			// 
 			this.DifferenceBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.DifferenceBox.ByteSize = BizHawk.Client.Common.WatchSize.Byte;
 			this.DifferenceBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
 			this.DifferenceBox.Enabled = false;
@@ -897,7 +897,7 @@
 			// NumberOfChangesBox
 			// 
 			this.NumberOfChangesBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.NumberOfChangesBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
 			this.NumberOfChangesBox.Enabled = false;
 			this.NumberOfChangesBox.Location = new System.Drawing.Point(114, 78);
@@ -911,7 +911,7 @@
 			// SpecificAddressBox
 			// 
 			this.SpecificAddressBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.SpecificAddressBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
 			this.SpecificAddressBox.Enabled = false;
 			this.SpecificAddressBox.Location = new System.Drawing.Point(114, 58);
@@ -925,7 +925,7 @@
 			// SpecificValueBox
 			// 
 			this.SpecificValueBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.SpecificValueBox.ByteSize = BizHawk.Client.Common.WatchSize.Byte;
 			this.SpecificValueBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
 			this.SpecificValueBox.Enabled = false;
@@ -989,23 +989,23 @@
 			// 
 			this.toolStrip1.ClickThrough = true;
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.DoSearchToolButton,
-			this.toolStripSeparator10,
-			this.NewSearchToolButton,
-			this.toolStripSeparator15,
-			this.CopyValueToPrevToolBarItem,
-			this.ClearChangeCountsToolBarItem,
-			this.toolStripSeparator16,
-			this.RemoveToolBarItem,
-			this.AddToRamWatchToolBarItem,
-			this.PokeAddressToolBarItem,
-			this.FreezeAddressToolBarItem,
-			this.toolStripSeparator12,
-			this.UndoToolBarButton,
-			this.RedoToolBarItem,
-			this.RebootToolBarSeparator,
-			this.RebootToolbarButton,
-			this.ErrorIconButton});
+            this.DoSearchToolButton,
+            this.toolStripSeparator10,
+            this.NewSearchToolButton,
+            this.toolStripSeparator15,
+            this.CopyValueToPrevToolBarItem,
+            this.ClearChangeCountsToolBarItem,
+            this.toolStripSeparator16,
+            this.RemoveToolBarItem,
+            this.AddToRamWatchToolBarItem,
+            this.PokeAddressToolBarItem,
+            this.FreezeAddressToolBarItem,
+            this.toolStripSeparator12,
+            this.UndoToolBarButton,
+            this.RedoToolBarItem,
+            this.RebootToolBarSeparator,
+            this.RebootToolbarButton,
+            this.ErrorIconButton});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 24);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new System.Drawing.Size(445, 25);
@@ -1297,9 +1297,9 @@
 			this.SizeDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.SizeDropdown.FormattingEnabled = true;
 			this.SizeDropdown.Items.AddRange(new object[] {
-			"1 Byte",
-			"2 Byte",
-			"4 Byte"});
+            "1 Byte",
+            "2 Byte",
+            "4 Byte"});
 			this.SizeDropdown.Location = new System.Drawing.Point(244, 485);
 			this.SizeDropdown.Name = "SizeDropdown";
 			this.SizeDropdown.Size = new System.Drawing.Size(73, 21);
@@ -1332,9 +1332,9 @@
 			this.DisplayTypeDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.DisplayTypeDropdown.FormattingEnabled = true;
 			this.DisplayTypeDropdown.Items.AddRange(new object[] {
-			"1 Byte",
-			"2 Byte",
-			"4 Byte"});
+            "1 Byte",
+            "2 Byte",
+            "4 Byte"});
 			this.DisplayTypeDropdown.Location = new System.Drawing.Point(327, 485);
 			this.DisplayTypeDropdown.Name = "DisplayTypeDropdown";
 			this.DisplayTypeDropdown.Size = new System.Drawing.Size(107, 21);
