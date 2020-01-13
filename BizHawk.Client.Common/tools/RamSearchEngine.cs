@@ -21,8 +21,12 @@ namespace BizHawk.Client.Common
 			Previous, SpecificValue, SpecificAddress, Changes, Difference
 		}
 
-		private Compare _compareTo = Compare.Previous;
+		public enum AddressFilterType
+		{
+			GreaterThan, GreaterThanEqual, LessThan, LessThanEqual
+		}
 
+		private Compare _compareTo = Compare.Previous;
 		private List<IMiniWatch> _watchList = new List<IMiniWatch>();
 		private readonly Settings _settings;
 		private readonly UndoHistory<IMiniWatch> _history = new UndoHistory<IMiniWatch>(true);
@@ -42,12 +46,14 @@ namespace BizHawk.Client.Common
 			};
 		}
 
-		public RamSearchEngine(Settings settings, IMemoryDomains memoryDomains, Compare compareTo, long? compareValue, int? differentBy)
+		public RamSearchEngine(Settings settings, IMemoryDomains memoryDomains, Compare compareTo, long? compareValue, int? differentBy, AddressFilter startFilter, AddressFilter endFilter)
 			: this(settings, memoryDomains)
 		{
 			_compareTo = compareTo;
 			DifferentBy = differentBy;
 			CompareValue = compareValue;
+			StartAddressFilter = startFilter;
+			EndAddressFilter = endFilter;
 		}
 
 		#region API
@@ -162,6 +168,8 @@ namespace BizHawk.Client.Common
 		{
 			int before = _watchList.Count;
 
+			_watchList = ApplyAddressFilters(_watchList).ToList();
+
 			switch (_compareTo)
 			{
 				default:
@@ -200,6 +208,11 @@ namespace BizHawk.Client.Common
 			var listOfOne = Enumerable.Repeat(_isSorted
 				? _watchList.BinarySearch(w => w.Address, address)
 				: _watchList.FirstOrDefault(w => w.Address == address), 1);
+
+			if (!ApplyAddressFilters(listOfOne).Any())
+			{
+				return true;
+			}
 
 			switch (_compareTo)
 			{
@@ -240,6 +253,9 @@ namespace BizHawk.Client.Common
 				}
 			}
 		}
+
+		public AddressFilter StartAddressFilter { get; set; }
+		public AddressFilter EndAddressFilter { get; set; }
 
 		public long? CompareValue { get; set; }
 
@@ -793,6 +809,57 @@ namespace BizHawk.Client.Common
 		}
 
 		#endregion
+		#region Address Filters
+		private IEnumerable<IMiniWatch> ApplyAddressFilters(IEnumerable<IMiniWatch> watches)
+		{
+			/*
+			 * 
+			if (StartAddressFilter != null && StartAddressFilter.FilterValue.HasValue)
+			{
+				switch (StartAddressFilter.FilterType)
+				{
+					case AddressFilterType.GreaterThan:
+						_watchList = _watchList.Where(w => w.Address > StartAddressFilter.FilterValue.Value).ToList();
+						break;
+					case AddressFilterType.GreaterThanEqual:
+						_watchList = _watchList.Where(w => w.Address >= StartAddressFilter.FilterValue.Value).ToList();
+						break;
+					default:
+						throw new InvalidOperationException();
+				}
+			}
+			if (EndAddressFilter != null && EndAddressFilter.FilterValue.HasValue)
+			{
+				switch (EndAddressFilter.FilterType)
+				{
+					case AddressFilterType.LessThan:
+						_watchList = _watchList.Where(w => w.Address < EndAddressFilter.FilterValue.Value).ToList();
+						break;
+					case AddressFilterType.LessThanEqual:
+						_watchList = _watchList.Where(w => w.Address <= EndAddressFilter.FilterValue.Value).ToList();
+						break;
+					default:
+						throw new InvalidOperationException();
+				}
+			}
+			*/
+			// LINQ Stuntin
+			return watches.Where(w =>
+				(StartAddressFilter == null
+				|| !StartAddressFilter.FilterValue.HasValue
+				|| (StartAddressFilter.FilterType == AddressFilterType.GreaterThan
+					&& w.Address > StartAddressFilter.FilterValue)
+				|| (StartAddressFilter.FilterType == AddressFilterType.GreaterThanEqual
+					&& w.Address >= StartAddressFilter.FilterValue))
+				&& (EndAddressFilter == null
+				|| !EndAddressFilter.FilterValue.HasValue
+				|| (EndAddressFilter.FilterType == AddressFilterType.LessThan
+					&& w.Address < EndAddressFilter.FilterValue)
+				|| (EndAddressFilter.FilterType == AddressFilterType.LessThanEqual
+					&& w.Address <= EndAddressFilter.FilterValue))
+			);
+		}
+		#endregion
 
 		#region Private parts
 
@@ -1129,6 +1196,12 @@ namespace BizHawk.Client.Common
 			public DisplayType Type { get; set; }
 			public bool BigEndian { get; set; }
 			public PreviousType PreviousType { get; set; }
+		}
+
+		public class AddressFilter
+		{
+			public AddressFilterType FilterType { get; set; }
+			public long? FilterValue { get; set; }
 		}
 
 		#endregion
