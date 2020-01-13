@@ -869,7 +869,7 @@
 			// 
 			// DifferenceBox
 			// 
-			this.DifferenceBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.DifferenceBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 			| System.Windows.Forms.AnchorStyles.Right)));
 			this.DifferenceBox.ByteSize = BizHawk.Client.Common.WatchSize.Byte;
 			this.DifferenceBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -896,7 +896,7 @@
 			// 
 			// NumberOfChangesBox
 			// 
-			this.NumberOfChangesBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.NumberOfChangesBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 			| System.Windows.Forms.AnchorStyles.Right)));
 			this.NumberOfChangesBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
 			this.NumberOfChangesBox.Enabled = false;
@@ -910,7 +910,7 @@
 			// 
 			// SpecificAddressBox
 			// 
-			this.SpecificAddressBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.SpecificAddressBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 			| System.Windows.Forms.AnchorStyles.Right)));
 			this.SpecificAddressBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
 			this.SpecificAddressBox.Enabled = false;
