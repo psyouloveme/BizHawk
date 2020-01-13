@@ -812,38 +812,6 @@ namespace BizHawk.Client.Common
 		#region Address Filters
 		private IEnumerable<IMiniWatch> ApplyAddressFilters(IEnumerable<IMiniWatch> watches)
 		{
-			/*
-			 * 
-			if (StartAddressFilter != null && StartAddressFilter.FilterValue.HasValue)
-			{
-				switch (StartAddressFilter.FilterType)
-				{
-					case AddressFilterType.GreaterThan:
-						_watchList = _watchList.Where(w => w.Address > StartAddressFilter.FilterValue.Value).ToList();
-						break;
-					case AddressFilterType.GreaterThanEqual:
-						_watchList = _watchList.Where(w => w.Address >= StartAddressFilter.FilterValue.Value).ToList();
-						break;
-					default:
-						throw new InvalidOperationException();
-				}
-			}
-			if (EndAddressFilter != null && EndAddressFilter.FilterValue.HasValue)
-			{
-				switch (EndAddressFilter.FilterType)
-				{
-					case AddressFilterType.LessThan:
-						_watchList = _watchList.Where(w => w.Address < EndAddressFilter.FilterValue.Value).ToList();
-						break;
-					case AddressFilterType.LessThanEqual:
-						_watchList = _watchList.Where(w => w.Address <= EndAddressFilter.FilterValue.Value).ToList();
-						break;
-					default:
-						throw new InvalidOperationException();
-				}
-			}
-			*/
-			// LINQ Stuntin
 			return watches.Where(w =>
 				(StartAddressFilter == null
 				|| !StartAddressFilter.FilterValue.HasValue
